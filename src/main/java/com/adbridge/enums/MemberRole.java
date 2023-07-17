@@ -7,10 +7,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum MemberRole {
 
-    USER("USER", "유저"),
-    ADMIN("ADMIN", "관리자");
+    USER("USER", "유저", "ROLE_USER"),
+    ADMIN("ADMIN", "관리자", "ROLE_ADMIN");
 
     private String code;
 
     private String desc;
+
+    private String role;
 }

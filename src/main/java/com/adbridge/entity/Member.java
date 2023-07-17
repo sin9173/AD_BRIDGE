@@ -6,6 +6,7 @@ import com.adbridge.enums.MemberRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 @Entity
 @Getter
@@ -46,7 +47,7 @@ public class Member extends BaseEntity {
     }
 
     public void updateInfo(MemberModifyReqDto dto) {
-        this.email = dto.getEmail();
+        if(StringUtils.hasText(dto.getEmail())) this.email = dto.getEmail();
     }
 
 }

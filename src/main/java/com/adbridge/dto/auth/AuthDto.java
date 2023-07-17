@@ -28,5 +28,6 @@ public class AuthDto {
         this.password = member.getPassword();
         this.id = member.getId();
         this.memberRole = member.getRole();
+        this.email = member.getEmail();
     }
 }

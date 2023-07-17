@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -113,6 +114,19 @@ public class JwtUtils implements InitializingBean {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    /** 헤더에서 토큰 가져오기 */
+    public String getAccessToken(HttpServletRequest request) {
+        String header = request.getHeader("authentication");
+        if(header==null) header = request.getHeader("Authentication");
+        return header != null ? header.replace("Bearer ", "") : "";
+    }
+
+    /** 토큰 정보가 본인의 것인지 확인 */
+    public void personalCheck(Long memberId, HttpServletRequest request) {
+        Long claimId = getClaims(getAccessToken(request)).get("memberId", Long.class);
+        if(claimId!=memberId) throw new BadCredentialsException("본인의 계정이 아닙니다.");
     }
 
     /** 유효성 체크 */

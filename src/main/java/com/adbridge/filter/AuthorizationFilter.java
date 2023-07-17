@@ -31,7 +31,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
     /** JWT ACCESS TOKEN 인증 */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String accessToken = getAccessToken(request);
+        String accessToken = jwtUtils.getAccessToken(request);
         try {
             jwtUtils.validateToken(accessToken);
             Authentication authentication = getAuthentication(accessToken);
@@ -50,10 +50,5 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         return new UsernamePasswordAuthenticationToken(principalDetails, token, principalDetails.getAuthorities());
     }
 
-    /** 헤더에서 토큰 가져오기 */
-    private String getAccessToken(HttpServletRequest request) {
-        String header = request.getHeader("authentication");
-        if(header==null) header = request.getHeader("Authentication");
-        return header != null ? header.replace("Bearer ", "") : "";
-    }
+
 }
