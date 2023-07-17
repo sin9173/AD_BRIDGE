@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/adbridge
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: adbridge
+    password: bridge123
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+server:
+  servlet:
+    context-path: /adbridge
+
+jwt:
+  secret: c2lsemVybdluAS10ZWNoLXNwcxluZy1ic290LWp3dC10dXRvfmlhbC1zZWTyDXQtc2ledmGybmluYS30EGUoLONwcm3uZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  token-valid-millis: 3600000
+  refresh-token-valid-millis: 86400000
+
+logging:
+  level:
+    root: DEBUG
