@@ -33,6 +33,8 @@ public class MatchSaveReqDto { //매칭데이터 등록 요청 데이터
     
     private String video_link; //참고영상링크
     
+    private String budget; //예산범위
+    
     private String content; //상세제작내용
 
     private List<ScopeSaveReqDto> scope_list = new ArrayList<>(); //제작범위 리스트
@@ -40,7 +42,7 @@ public class MatchSaveReqDto { //매칭데이터 등록 요청 데이터
     @Getter
     @Setter
     @ToString
-    class ScopeSaveReqDto {
+    public class ScopeSaveReqDto {
         private String name;
     }
 

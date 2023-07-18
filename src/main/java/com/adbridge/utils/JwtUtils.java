@@ -126,7 +126,12 @@ public class JwtUtils implements InitializingBean {
     /** 토큰 정보가 본인의 것인지 확인 */
     public void personalCheck(Long memberId, HttpServletRequest request) {
         Long claimId = getClaims(getAccessToken(request)).get("memberId", Long.class);
-        if(claimId!=memberId) throw new BadCredentialsException("본인의 계정이 아닙니다.");
+        if(claimId!=memberId) throw new BadCredentialsException("본인의 정보가 아닙니다.");
+    }
+
+    /** 토큰에서 회원 인덱스 가져오기 */
+    public Long getMemberId(HttpServletRequest request) {
+        return getClaims(getAccessToken(request)).get("memberId", Long.class);
     }
 
     /** 유효성 체크 */

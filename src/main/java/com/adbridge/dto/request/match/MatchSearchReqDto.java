@@ -10,6 +10,8 @@ import lombok.ToString;
 public class MatchSearchReqDto { //매칭데이터 검색 요청 데이터
 
     private String username; //회원 아이디
+    
+    private String email; // 회원 이메일
 
     private String purpose; //제작목적
 

@@ -18,4 +18,14 @@ public class Scope { //제작 범위
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "match_id")
     private Match match; //매칭데이터
+
+
+    public Scope(String name) {
+        this.name = name;
+    }
+
+
+    public void updateMatch(Match match) {
+        this.match = match;
+    }
 }

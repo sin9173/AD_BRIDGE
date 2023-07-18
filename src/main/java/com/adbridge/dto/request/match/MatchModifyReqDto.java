@@ -30,6 +30,8 @@ public class MatchModifyReqDto { //매칭데이터 수정 요청데이터
     private String company; // 업체명
 
     private String video_link; //참고영상링크
+    
+    private String budget; //예산범위
 
     private String content; //상세제작내용
 
@@ -38,7 +40,7 @@ public class MatchModifyReqDto { //매칭데이터 수정 요청데이터
     @Getter
     @Setter
     @ToString
-    class ScopeModifyReqDto {
+    public class ScopeModifyReqDto {
         private String name;
     }
 }
