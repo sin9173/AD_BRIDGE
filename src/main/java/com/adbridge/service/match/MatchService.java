@@ -49,18 +49,18 @@ public class MatchService {
     }
 
     /** 매칭데이터 수정 */
+    @Transactional
     public ResponseDto matchModify(MatchModifyReqDto dto, Long id, HttpServletRequest request) {
-        Match match = matchRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 매칭데이터입니다."));
+        Match match = getMatch(id);
         jwtUtils.personalCheck(match.getMember().getId(), request);
         match.updateInfo(dto);
         return new ResponseDto(ResponseResult.SUCCESS);
     }
 
     /** 매칭데이터 삭제 */
+    @Transactional
     public ResponseDto matchDelete(Long id, HttpServletRequest request) {
-        Match match = matchRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 매칭데이터입니다."));
+        Match match = getMatch(id);
         jwtUtils.personalCheck(match.getMember().getId(), request);
         match.delete();
         return new ResponseDto(ResponseResult.SUCCESS);
@@ -83,16 +83,29 @@ public class MatchService {
 
     /** 매칭데이터 상세 조회 */
     public SingleResponseDto<MatchDetailResDto> matchDetailAdmin(Long id) {
-        Match match = matchRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 매칭데이터입니다."));
+        Match match = getMatch(id);
         return new SingleResponseDto("0", "성공", new MatchDetailResDto(match));
     }
 
     public SingleResponseDto<MatchDetailResDto> matchDetailUser(Long id, HttpServletRequest request) {
-        Match match = matchRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 매칭데이터입니다."));
+        Match match = getMatch(id);
         Long memberId = jwtUtils.getMemberId(request);
         if(match.getMember().getId()!=memberId) throw new BadCredentialsException("본인의 매칭데이터가 아닙니다.");
         return new SingleResponseDto("0", "성공", new MatchDetailResDto(match));
     }
+
+    /** 매칭 데이터 확인 (관리자) */
+    @Transactional
+    public ResponseDto matchCheck(Long id) {
+        Match match = getMatch(id);
+        match.updateCheckYn(true);
+        return new ResponseDto(ResponseResult.SUCCESS);
+    }
+
+
+    private Match getMatch(Long id) {
+        return matchRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 매칭데이터입니다."));
+    }
+
 }

@@ -21,4 +21,6 @@ public class MatchSearchReqDto { //매칭데이터 검색 요청 데이터
 
     private String company; //업체명
 
+    private Boolean check_yn; // 확인 여부
+
 }

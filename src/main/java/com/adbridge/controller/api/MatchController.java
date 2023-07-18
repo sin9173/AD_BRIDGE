@@ -56,4 +56,9 @@ public class MatchController {
     public ResponseEntity<SingleResponseDto<MatchDetailResDto>> matchDetail(@PathVariable Long id, HttpServletRequest request) { //매칭데이터 상세 조회
         return ResponseEntity.ok(matchService.matchDetailUser(id, request));
     }
+
+    @PatchMapping("/admin/match/{id}/check")
+    public ResponseEntity<ResponseDto> matchCheck(@PathVariable Long id) { //매칭데이터 확인
+        return ResponseEntity.ok(matchService.matchCheck(id));
+    }
 }

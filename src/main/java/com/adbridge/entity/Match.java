@@ -5,6 +5,7 @@ import com.adbridge.dto.request.match.MatchSaveReqDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,10 @@ public class Match extends BaseEntity { //매칭데이터
     private String videoLink; //참고영상링크
     private String budget; //예산범위
     private String content; //상세제작내용
+
+    @ColumnDefault("0")
+    @Column(columnDefinition = "TINYINT")
+    private Boolean checkYn = false;
 
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
     private List<Scope> scopeList = new ArrayList<>(); //제작 범위
@@ -78,5 +83,9 @@ public class Match extends BaseEntity { //매칭데이터
     public void addScope(Scope scope) {
         this.scopeList.add(scope);
         scope.updateMatch(this);
+    }
+
+    public void updateCheckYn(Boolean checkYn) {
+        this.checkYn = checkYn;
     }
 }

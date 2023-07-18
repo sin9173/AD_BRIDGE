@@ -47,6 +47,9 @@ public class MatchDetailResDto { //매칭데이터 상세 조회 응답데이터
 
     private String content; //상세제작내용
 
+    private Boolean check_yn;
+
+
     private List<ScopeListResDto> scope_list = new ArrayList<>(); //제작범위 리스트
 
     @Getter
@@ -71,6 +74,7 @@ public class MatchDetailResDto { //매칭데이터 상세 조회 응답데이터
         this.video_link = match.getVideoLink();
         this.budget = match.getBudget();
         this.content = match.getContent();
+        this.check_yn = match.getCheckYn();
 
         this.scope_list = match.getScopeList().stream()
                 .map((s) -> new ScopeListResDto(s.getName()))

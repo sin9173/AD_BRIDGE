@@ -34,7 +34,8 @@ public class MatchRepositoryQuery {
                         purposeContains(dto.getPurpose()),
                         styleContains(dto.getStyle()),
                         videoTitleContains(dto.getVideo_title()),
-                        companyContains(dto.getCompany())
+                        companyContains(dto.getCompany()),
+                        checkYnEq(dto.getCheck_yn())
                 )
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -49,7 +50,8 @@ public class MatchRepositoryQuery {
                         purposeContains(dto.getPurpose()),
                         styleContains(dto.getStyle()),
                         videoTitleContains(dto.getVideo_title()),
-                        companyContains(dto.getCompany())
+                        companyContains(dto.getCompany()),
+                        checkYnEq(dto.getCheck_yn())
                 );
         return PageableExecutionUtils.getPage(content, pageable, () -> countQuery.fetchOne());
     }
@@ -76,5 +78,9 @@ public class MatchRepositoryQuery {
 
     private BooleanExpression companyContains(String company) {
         return StringUtils.hasText(company) ? match.company.contains(company) : null;
+    }
+
+    private BooleanExpression checkYnEq(Boolean checkYn) {
+        return checkYn!=null ? match.checkYn.eq(checkYn) : null;
     }
 }

@@ -42,6 +42,8 @@ public class MatchListResDto { //매칭 데이터 리스트 조회 응답 데이
 
     private String content; //상세제작내용
 
+    private Boolean check_yn; //확인여부
+
     @QueryProjection
     public MatchListResDto(Match match) {
         this.id = match.getId();
@@ -57,6 +59,7 @@ public class MatchListResDto { //매칭 데이터 리스트 조회 응답 데이
         this.video_link = match.getVideoLink();
         this.budget = match.getBudget();
         this.content = match.getContent();
+        this.check_yn = match.getCheckYn();
     }
 
 }
