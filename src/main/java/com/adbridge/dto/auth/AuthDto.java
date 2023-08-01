@@ -23,11 +23,17 @@ public class AuthDto {
 
     private String email;
 
+    private String name;
+
+    private String phone;
+
     public AuthDto(Member member) {
         this.username = member.getUsername();
         this.password = member.getPassword();
         this.id = member.getId();
         this.memberRole = member.getRole();
         this.email = member.getEmail();
+        this.name = member.getName();
+        this.phone = member.getPhone();
     }
 }

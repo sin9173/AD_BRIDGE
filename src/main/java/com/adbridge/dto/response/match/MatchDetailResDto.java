@@ -1,12 +1,12 @@
 package com.adbridge.dto.response.match;
 
-import com.adbridge.dto.request.match.MatchSaveReqDto;
-import com.adbridge.entity.Match;
+import com.adbridge.entity.Matching;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +22,10 @@ public class MatchDetailResDto { //매칭데이터 상세 조회 응답데이터
     private String username; //회원 아이디
 
     private String email; // 회원 이메일
+    
+    private String member_name;//회원명
+    
+    private String phone; //전화번호
 
     /** 매칭데이터 */
     private String purpose; // 제작목적
@@ -49,6 +53,8 @@ public class MatchDetailResDto { //매칭데이터 상세 조회 응답데이터
 
     private Boolean check_yn;
 
+    private String created_at;
+
 
     private List<ScopeListResDto> scope_list = new ArrayList<>(); //제작범위 리스트
 
@@ -60,23 +66,29 @@ public class MatchDetailResDto { //매칭데이터 상세 조회 응답데이터
         private String name;
     }
 
-    public MatchDetailResDto(Match match) {
-        this.id = match.getId();
-        this.username = match.getMember().getUsername();
-        this.email = match.getMember().getUsername();
-        this.purpose = match.getPurpose();
-        this.style = match.getStyle();
-        this.make_count = match.getMakeCount();
-        this.video_length = match.getVideoLength();
-        this.hope_delivery_date = match.getHopeDeliveryDate();
-        this.video_title = match.getVideoTitle();
-        this.company = match.getCompany();
-        this.video_link = match.getVideoLink();
-        this.budget = match.getBudget();
-        this.content = match.getContent();
-        this.check_yn = match.getCheckYn();
+    public MatchDetailResDto(Matching matching) {
+        this.id = matching.getId();
+        this.username = matching.getMember().getUsername();
+        this.email = matching.getMember().getUsername();
+        this.member_name = matching.getMember().getName();
+        this.phone = matching.getMember().getPhone();
 
-        this.scope_list = match.getScopeList().stream()
+        this.purpose = matching.getPurpose();
+        this.style = matching.getStyle();
+        this.make_count = matching.getMakeCount();
+        this.video_length = matching.getVideoLength();
+        this.hope_delivery_date = matching.getHopeDeliveryDate();
+        this.video_title = matching.getVideoTitle();
+        this.company = matching.getCompany();
+        this.video_link = matching.getVideoLink();
+        this.budget = matching.getBudget();
+        this.content = matching.getContent();
+        this.check_yn = matching.getCheckYn();
+
+        this.created_at = matching.getCreatedAt()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd / HH:mm"));
+
+        this.scope_list = matching.getScopeList().stream()
                 .map((s) -> new ScopeListResDto(s.getName()))
                 .collect(Collectors.toList());
     }

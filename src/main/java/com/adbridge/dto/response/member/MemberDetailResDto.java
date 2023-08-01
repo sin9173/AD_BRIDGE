@@ -15,6 +15,10 @@ public class MemberDetailResDto { //회원 상세 조회 응답 데이터
     private String username; //회원 아이디
 
     private String email; //이메일
+    
+    private String name; //회원명
+    
+    private String phone; //전화번호
 
     private String role_code; //권한코드
 
@@ -24,6 +28,8 @@ public class MemberDetailResDto { //회원 상세 조회 응답 데이터
         this.id = member.getId();
         this.username = member.getUsername();
         this.email = member.getEmail();
+        this.name = member.getName();
+        this.phone = member.getPhone();
         this.role_code = member.getRole().getCode();
         this.role_name = member.getRole().getDesc();
     }

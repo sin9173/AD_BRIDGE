@@ -3,6 +3,7 @@ package com.adbridge.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,6 +27,19 @@ public abstract class BaseEntity {
     @ColumnDefault("0")
     @Column(columnDefinition = "TINYINT")
     private Boolean deleteYn = false; //삭제여부
+
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        createdAt = now;
+        modifiedAt = now;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        LocalDateTime now = LocalDateTime.now();
+        modifiedAt = now;
+    }
 
 
     public void delete() {

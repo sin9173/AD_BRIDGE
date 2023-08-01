@@ -16,6 +16,10 @@ public class LoginResDto { //로그인 응답 데이터
     private String username; //회원 아이디
 
     private String email; //이메일
+    
+    private String name; //회원명
+    
+    private String phone; //전화번호
 
     private String role_code; //권한 코드
 
@@ -26,6 +30,8 @@ public class LoginResDto { //로그인 응답 데이터
         this.member_id = dto.getId();
         this.username = dto.getUsername();
         this.email = dto.getEmail();
+        this.name = dto.getName();
+        this.phone = dto.getPhone();
         this.role_code = dto.getMemberRole().getCode();
         this.role_name = dto.getMemberRole().getDesc();
     }

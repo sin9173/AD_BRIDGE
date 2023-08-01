@@ -42,7 +42,7 @@ public class MatchSaveReqDto { //매칭데이터 등록 요청 데이터
     @Getter
     @Setter
     @ToString
-    public class ScopeSaveReqDto {
+    public static class ScopeSaveReqDto {
         private String name;
     }
 

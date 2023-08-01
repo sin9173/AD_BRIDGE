@@ -16,8 +16,8 @@ public class Scope { //제작 범위
     private String name; //제작 범위명
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "match_id")
-    private Match match; //매칭데이터
+    @JoinColumn(name = "matching_id")
+    private Matching matching; //매칭데이터
 
 
     public Scope(String name) {
@@ -25,7 +25,7 @@ public class Scope { //제작 범위
     }
 
 
-    public void updateMatch(Match match) {
-        this.match = match;
+    public void updateMatch(Matching matching) {
+        this.matching = matching;
     }
 }

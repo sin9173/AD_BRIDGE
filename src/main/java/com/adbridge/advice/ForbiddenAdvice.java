@@ -17,9 +17,9 @@ public class ForbiddenAdvice {
     @Order(value = 100)
     @ExceptionHandler(InvalidTokenException.class)
     @ResponseBody
-    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<ResponseDto> invalidToken(InvalidTokenException e) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(new ResponseDto("40301", e.getMessage()));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ResponseDto("40101", e.getMessage()));
     }
 }

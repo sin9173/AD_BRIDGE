@@ -1,10 +1,12 @@
 package com.adbridge.dto.response.match;
 
-import com.adbridge.entity.Match;
+import com.adbridge.entity.Matching;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -17,6 +19,10 @@ public class MatchListResDto { //매칭 데이터 리스트 조회 응답 데이
     private String username; //회원 아이디
 
     private String email; // 회원 이메일
+    
+    private String member_name; //회원명
+    
+    private String phone; //전화번호
 
     /** 매칭데이터 */
     private String purpose; // 제작목적
@@ -44,22 +50,30 @@ public class MatchListResDto { //매칭 데이터 리스트 조회 응답 데이
 
     private Boolean check_yn; //확인여부
 
+    private String created_at; //날짜
+
     @QueryProjection
-    public MatchListResDto(Match match) {
-        this.id = match.getId();
-        this.username = match.getMember().getUsername();
-        this.email = match.getMember().getUsername();
-        this.purpose = match.getPurpose();
-        this.style = match.getStyle();
-        this.make_count = match.getMakeCount();
-        this.video_length = match.getVideoLength();
-        this.hope_delivery_date = match.getHopeDeliveryDate();
-        this.video_title = match.getVideoTitle();
-        this.company = match.getCompany();
-        this.video_link = match.getVideoLink();
-        this.budget = match.getBudget();
-        this.content = match.getContent();
-        this.check_yn = match.getCheckYn();
+    public MatchListResDto(Matching matching) {
+        this.id = matching.getId();
+        this.username = matching.getMember().getUsername();
+        this.email = matching.getMember().getUsername();
+        this.member_name = matching.getMember().getName();
+        this.phone = matching.getMember().getPhone();
+
+        this.purpose = matching.getPurpose();
+        this.style = matching.getStyle();
+        this.make_count = matching.getMakeCount();
+        this.video_length = matching.getVideoLength();
+        this.hope_delivery_date = matching.getHopeDeliveryDate();
+        this.video_title = matching.getVideoTitle();
+        this.company = matching.getCompany();
+        this.video_link = matching.getVideoLink();
+        this.budget = matching.getBudget();
+        this.content = matching.getContent();
+        this.check_yn = matching.getCheckYn();
+
+        this.created_at = matching.getCreatedAt()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd / HH:mm"));
     }
 
 }

@@ -38,12 +38,12 @@ public class MatchController {
     }
 
     @GetMapping("/admin/matches")
-    public ResponseEntity<SingleResponseDto<Page<MatchListResDto>>> matchSearchAdmin(@RequestBody MatchSearchReqDto dto, Pageable pageable) { //매칭데이터 리스트 조회(검색)
+    public ResponseEntity<SingleResponseDto<Page<MatchListResDto>>> matchSearchAdmin(@ModelAttribute MatchSearchReqDto dto, Pageable pageable) { //매칭데이터 리스트 조회(검색)
         return ResponseEntity.ok(matchService.matchSearchAdmin(dto, pageable));
     }
 
     @GetMapping("/matches")
-    public ResponseEntity<SingleResponseDto<Page<MatchListResDto>>> matchSearch(@RequestBody MatchSearchReqDto dto, Pageable pageable, HttpServletRequest request) throws InvalidTokenException { //매칭데이터 리스트 조회(검색)
+    public ResponseEntity<SingleResponseDto<Page<MatchListResDto>>> matchSearch(@ModelAttribute MatchSearchReqDto dto, Pageable pageable, HttpServletRequest request) throws InvalidTokenException { //매칭데이터 리스트 조회(검색)
         return ResponseEntity.ok(matchService.matchSearchUser(dto, pageable, request));
     }
 

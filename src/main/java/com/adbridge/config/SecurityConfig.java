@@ -21,6 +21,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -77,6 +83,7 @@ public class SecurityConfig {
 
     /** 기본 설정 */
     private void basicSecurity(HttpSecurity http) throws Exception {
+        http.cors(cors -> cors.configurationSource(corsConfiguration()));
         http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.exceptionHandling(c -> c
@@ -99,5 +106,30 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+
+    @Bean
+    public CorsConfigurationSource corsConfiguration() {
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.applyPermitDefaultValues();
+        corsConfig.setAllowCredentials(true);
+        allowMethod(corsConfig, Arrays.asList("GET", "PATCH", "POST", "OPTIONS", "DELETE", "PUT"));
+        corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://adbridge.net", "http://www.adbridge.net"));
+        corsConfig.setAllowedHeaders(Arrays.asList("Content-Type", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Access-Control-Allow-Credentials", "token", "Accept", "Authentication", "Request-Type"));
+        corsConfig.setExposedHeaders(Arrays.asList("X-Get-Header", "Authentication", "token","Content-Type", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers", "Access-Control-Allow-Credentials"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfig);
+
+        return source;
+    }
+
+//    @Bean
+//    public CorsWebFilter corsWebFilter() {
+//        return new CorsWebFilter(corsConfiguration());
+//    }
+
+    private void allowMethod(CorsConfiguration config, List<String> list) {
+        list.forEach(m -> config.addAllowedMethod(m));
     }
 }

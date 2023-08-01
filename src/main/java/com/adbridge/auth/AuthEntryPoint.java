@@ -26,11 +26,11 @@ public class AuthEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         if(request.getAttribute("exception")!=null) {
-            responseUtils.setResponse(HttpStatus.FORBIDDEN.value(),
+            responseUtils.setResponse(HttpStatus.UNAUTHORIZED.value(),
                     new ResponseDto(ResponseResult.INVALID_TOKEN.getCode(), request.getAttribute("exception").toString()), response);
             log.error(request.getAttribute("exception").toString());
         } else {
-            responseUtils.setResponse(HttpStatus.FORBIDDEN.value(),
+            responseUtils.setResponse(HttpStatus.UNAUTHORIZED.value(),
                     new ResponseDto(ResponseResult.INVALID_TOKEN), response);
         }
     }

@@ -26,11 +26,7 @@ public class MemberRepositoryQuery {
 
     public Page<MemberListResDto> memberSearch(MemberSearchReqDto dto, Pageable pageable) {
         List<MemberListResDto> content = queryFactory
-                .select(new QMemberListResDto(
-                        member.id,
-                        member.username,
-                        member.email,
-                        member.role))
+                .select(new QMemberListResDto(member))
                 .from(member)
                 .where(
                         usernameContains(dto.getUsername()),

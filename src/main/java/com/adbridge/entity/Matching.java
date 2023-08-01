@@ -13,42 +13,42 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Match extends BaseEntity { //매칭데이터
+public class Matching extends BaseEntity { //매칭데이터
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String purpose; //제작목적
+    private String purpose = ""; //제작목적
 
-    private String style; //연출스타일
+    private String style = ""; //연출스타일
 
     /** 제작 기간 */
-    private String makeCount; //제작편수
+    private String makeCount = ""; //제작편수
 
-    private String videoLength; //영상길이
+    private String videoLength = ""; //영상길이
 
-    private String hopeDeliveryDate; //희망 납품 일자
+    private String hopeDeliveryDate = ""; //희망 납품 일자
 
     /** 상세 정보 */
-    private String videoTitle; //영상제목
-    private String company; //업체명
-    private String videoLink; //참고영상링크
-    private String budget; //예산범위
-    private String content; //상세제작내용
+    private String videoTitle = ""; //영상제목
+    private String company = ""; //업체명
+    private String videoLink = ""; //참고영상링크
+    private String budget = ""; //예산범위
+    private String content = ""; //상세제작내용
 
     @ColumnDefault("0")
     @Column(columnDefinition = "TINYINT")
     private Boolean checkYn = false;
 
-    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "matching")
     private List<Scope> scopeList = new ArrayList<>(); //제작 범위
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Match(MatchSaveReqDto dto, Member member) {
+    public Matching(MatchSaveReqDto dto, Member member) {
         this.purpose = dto.getPurpose();
         this.style = dto.getStyle();
         this.makeCount = dto.getMake_count();

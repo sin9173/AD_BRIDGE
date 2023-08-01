@@ -10,5 +10,9 @@ import lombok.ToString;
 public class MemberModifyReqDto { //회원 정보 수정 요청데이터
 
     private String email; //이메일 
+    
+    private String phone; //전화번호
+    
+    private String name; //이름
 
 }

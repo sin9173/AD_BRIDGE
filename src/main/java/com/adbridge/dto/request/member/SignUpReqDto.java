@@ -15,4 +15,8 @@ public class SignUpReqDto { // 회원가입 요청 데이터
 
     private String email; //이메일
 
+    private String name; //이름
+
+    private String phone; // 전화번호
+
 }
